@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EyesCity — We make things that work.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #080808; --bg2: #0f0f0f;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8e8e8; --muted: #555;
+    --green: #22c55e; --green-dim: rgba(34,197,94,0.12);
+    --mono: 'DM Mono', monospace; --sans: 'Syne', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; cursor: default; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.4; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 48px; border-bottom: 1px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  nav.scrolled { border-color: var(--border); background: rgba(8,8,8,0.9); backdrop-filter: blur(12px); }
+  .nav-logo { font-family: var(--sans); font-weight: 800; font-size: 18px; letter-spacing: -0.5px; color: #fff; text-decoration: none; transition: opacity 0.2s; }
+  .nav-logo:hover { opacity: 0.7; }
+  .nav-logo span { color: var(--green); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 48px 80px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; top: 20%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 70%); pointer-events: none; }
+
+  .hero-tag { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+  .hero-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+  .hero-title { font-size: clamp(48px, 7.5vw, 108px); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; max-width: 1000px; }
+  
+  /* 글자별 hover 애니메이션 */
+  .hero-title .word { display: inline-block; overflow: hidden; margin-right: 0.25em; }
+  .hero-title .word span { display: inline-block; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s; }
+  .hero-title .word:hover span { transform: translateY(-6px); color: var(--green); }
+
+  .hero-sub { font-size: clamp(16px, 2vw, 24px); font-weight: 400; letter-spacing: 0.02em; color: var(--muted); margin-bottom: 48px; font-family: var(--mono); transition: color 0.3s; }
+  .hero-sub:hover { color: var(--text); }
+
+  .hero-desc { font-family: var(--mono); font-size: 13px; color: var(--muted); max-width: 480px; line-height: 1.9; margin-bottom: 64px; }
+  .hero-cta { display: flex; gap: 16px; align-items: center; }
+
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--green); color: #000; font-family: var(--mono); font-size: 13px; font-weight: 500; text-decoration: none; border-radius: 4px; transition: opacity 0.2s, transform 0.2s; }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 13px; text-decoration: none; border-radius: 4px; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--text); transform: translateY(-2px); }
+
+  .scroll-hint { position: absolute; bottom: 40px; left: 48px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; display: flex; align-items: center; gap: 12px; }
+  .scroll-hint::after { content: ''; display: block; width: 40px; height: 1px; background: var(--muted); }
+
+  .divider { height: 1px; background: var(--border); margin: 0 48px; }
+  section { padding: 100px 48px; }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 60px; display: flex; align-items: center; gap: 16px; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--green); opacity: 0.4; }
+
+  /* PILLARS */
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+  .pillar { background: var(--bg); padding: 60px 48px; position: relative; overflow: hidden; transition: background 0.3s; }
+  .pillar:hover { background: var(--bg2); }
+  .pillar-icon { font-size: 32px; margin-bottom: 32px; display: block; transition: transform 0.3s; }
+  .pillar:hover .pillar-icon { transform: scale(1.1) rotate(5deg); }
+  .pillar-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.02em; transition: letter-spacing 0.3s, color 0.3s; }
+  .pillar:hover .pillar-title { letter-spacing: 0; color: var(--green); }
+  .pillar-sub { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .pillar-desc { font-family: var(--mono); font-size: 12px; color: #666; line-height: 1.9; margin-bottom: 32px; max-width: 400px; }
+  .pillar-desc em { color: var(--green); font-style: normal; }
+
+  .tech-highlight { border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; margin-bottom: 32px; background: rgba(34,197,94,0.03); transition: border-color 0.3s; }
+  .pillar:hover .tech-highlight { border-color: rgba(34,197,94,0.15); }
+  .tech-highlight-label { font-family: var(--mono); font-size: 10px; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .tech-highlight-text { font-family: var(--mono); font-size: 12px; color: #666; line-height: 1.8; }
+  .tech-highlight-text strong { color: var(--text); font-weight: 400; }
+
+  .pillar-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .pillar-list li { display: flex; align-items: center; gap: 16px; font-family: var(--mono); font-size: 13px; color: #aaa; transition: transform 0.2s, padding-left 0.2s; }
+  .pillar-list li:hover { transform: translateX(8px); }
+  .pillar-list .name { color: var(--text); min-width: 180px; }
+  .tag-live { display: inline-block; padding: 2px 8px; background: var(--green-dim); color: var(--green); font-family: var(--mono); font-size: 10px; border-radius: 2px; letter-spacing: 0.05em; }
+  .tag-soon { display: inline-block; padding: 2px 8px; background: rgba(255,255,255,0.05); color: var(--muted); font-family: var(--mono); font-size: 10px; border-radius: 2px; letter-spacing: 0.05em; }
+  .pillar-link { font-family: var(--mono); font-size: 11px; color: var(--green); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+  .pillar-link:hover { opacity: 1; }
+  .pillar-bg { position: absolute; bottom: -40px; right: -40px; font-size: 180px; opacity: 0.03; pointer-events: none; line-height: 1; transition: opacity 0.3s, transform 0.3s; }
+  .pillar:hover .pillar-bg { opacity: 0.06; transform: scale(1.05); }
+
+  /* STACK */
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--border); }
+  .stack-item { background: var(--bg); padding: 32px; transition: background 0.2s; overflow: hidden; position: relative; }
+  .stack-item::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--green); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .stack-item:hover { background: var(--bg2); }
+  .stack-item:hover::after { transform: scaleX(1); }
+  .stack-item .tech { font-family: var(--mono); font-size: 14px; color: var(--text); margin-bottom: 6px; transition: color 0.2s, transform 0.2s; display: inline-block; }
+  .stack-item:hover .tech { color: var(--green); transform: translateX(4px); }
+  .stack-item .desc { font-family: var(--mono); font-size: 11px; color: var(--muted); transition: color 0.2s; }
+  .stack-item:hover .desc { color: #777; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .about-title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; transition: letter-spacing 0.4s; }
+  .about-title:hover { letter-spacing: -0.01em; }
+  .about-text { font-family: var(--mono); font-size: 13px; color: var(--muted); line-height: 1.9; }
+  .about-info { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .info-row { display: flex; padding: 20px 24px; border-bottom: 1px solid var(--border); gap: 24px; transition: background 0.2s, padding-left 0.2s; }
+  .info-row:last-child { border-bottom: none; }
+  .info-row:hover { background: rgba(34,197,94,0.04); padding-left: 32px; }
+  .info-key { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; min-width: 120px; padding-top: 1px; }
+  .info-val { font-family: var(--mono); font-size: 13px; color: var(--text); }
+  .info-val a { color: var(--green); text-decoration: none; transition: opacity 0.2s; }
+  .info-val a:hover { opacity: 0.7; }
+
+  /* CONTACT */
+  .contact-inner { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 80px 0; }
+  .contact-title { font-size: clamp(40px, 6vw, 80px); font-weight: 800; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; line-height: 1; transition: color 0.3s, letter-spacing 0.3s; }
+  .contact-title:hover { color: var(--green); letter-spacing: -0.01em; }
+  .contact-email { font-family: var(--mono); font-size: 18px; color: var(--green); text-decoration: none; margin-bottom: 48px; display: inline-block; transition: opacity 0.2s, transform 0.2s; }
+  .contact-email:hover { opacity: 0.7; transform: scale(1.03); }
+
+  footer { padding: 32px 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .footer-right { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .footer-right a { color: var(--muted); text-decoration: none; transition: color 0.2s; margin-left: 16px; }
+  .footer-right a:hover { color: var(--text); }
+
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; } .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; } section { padding: 60px 24px; }
+    .divider { margin: 0 24px; } .pillars { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .scroll-hint { left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Eyes<span>City</span></a>
+  <ul class="nav-links">
+    <li><a href="#intelligence">Intelligence</a></li>
+    <li><a href="#embedded">Embedded</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag">Daegu, Korea — Est. 2026</div>
+  <h1 class="hero-title" id="heroTitle">We make things that work.</h1>
+  <div class="hero-sub">Software. Hardware. End to end.</div>
+  <p class="hero-desc">
+    From AI-powered news analysis platforms<br>
+    to embedded hardware systems —<br>
+    EyesCity builds technology that connects<br>
+    information to the real world.
+  </p>
+  <div class="hero-cta">
+    <a href="#intelligence" class="btn-primary">Our Work →</a>
+    <a href="#contact" class="btn-ghost">Get in Touch</a>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="intelligence" style="padding: 0;">
+  <div class="pillars">
+    <div class="pillar fade-in">
+      <span class="pillar-icon">◈</span>
+      <div class="pillar-title">Intelligence</div>
+      <div class="pillar-sub">// Information Platform Division</div>
+      <p class="pillar-desc">
+        We don't aggregate news. We understand it.<br>
+        Using <em>SBERT embeddings</em> and <em>HDBSCAN clustering</em>,
+        thousands of articles are grouped into meaningful
+        issue clusters — automatically, in real time.
+      </p>
+      <div class="tech-highlight">
+        <div class="tech-highlight-label">Core Technology</div>
+        <div class="tech-highlight-text">
+          <strong>Semantic Embedding</strong> maps each article into vector space,
+          capturing meaning beyond keywords.
+          <strong>Density-based clustering</strong> surfaces emergent issues
+          without predefined categories — letting the news define itself.
+        </div>
+      </div>
+      <ul class="pillar-list">
+        <li>
+          <span class="name">HanLab</span>
+          <span class="tag-live">live</span>
+          <a href="https://hanlab.app" target="_blank" class="pillar-link">hanlab.app ↗</a>
+        </li>
+        <li>
+          <span class="name">DongHunHam Analyzer</span>
+          <span class="tag-live">live</span>
+        </li>
+        <li>
+          <span class="name">Foreign News Analyzer</span>
+          <span class="tag-soon">coming soon</span>
+        </li>
+      </ul>
+      <div class="pillar-bg">◈</div>
+    </div>
+
+    <div class="pillar fade-in" id="embedded">
+      <span class="pillar-icon">⬡</span>
+      <div class="pillar-title">Embedded</div>
+      <div class="pillar-sub">// Hardware Division</div>
+      <p class="pillar-desc">
+        We build hardware that solves real problems.
+        From custom <em>UART scheduling protocols</em> on ESP32
+        to wireless analyzers and low-power display systems —
+        firmware and PCB, end to end.
+      </p>
+      <div class="tech-highlight">
+        <div class="tech-highlight-label">Core Technology</div>
+        <div class="tech-highlight-text">
+          <strong>BPU (Batch Processing Unit)</strong> is a custom UART backpressure
+          scheduling protocol for ESP32 — designed for reliable
+          high-throughput serial communication in constrained environments.
+        </div>
+      </div>
+      <ul class="pillar-list">
+        <li>
+          <span class="name">BPU Protocol</span>
+          <span class="tag-live">live</span>
+          <a href="https://github.com/choihimchan" target="_blank" class="pillar-link">github ↗</a>
+        </li>
+        <li>
+          <span class="name">LinkScope</span>
+          <span class="tag-live">live</span>
+        </li>
+        <li>
+          <span class="name">E-ink Temp & Humidity</span>
+          <span class="tag-soon">coming soon</span>
+        </li>
+        <li>
+          <span class="name">BLE HID Keyboard</span>
+          <span class="tag-soon">coming soon</span>
+        </li>
+      </ul>
+      <div class="pillar-bg">⬡</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-label">Stack</div>
+  <div class="stack-grid fade-in">
+    <div class="stack-item"><div class="tech">Python · FastAPI</div><div class="desc">Backend & AI Pipeline</div></div>
+    <div class="stack-item"><div class="tech">React Native · Expo</div><div class="desc">Mobile Application</div></div>
+    <div class="stack-item"><div class="tech">SBERT · HDBSCAN</div><div class="desc">Semantic News Clustering</div></div>
+    <div class="stack-item"><div class="tech">Supabase · PostgreSQL</div><div class="desc">Database & Auth</div></div>
+    <div class="stack-item"><div class="tech">ESP32 · BLE · UART</div><div class="desc">Embedded Systems</div></div>
+    <div class="stack-item"><div class="tech">KiCad · JLCPCB</div><div class="desc">PCB Design & Fabrication</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid fade-in">
+    <div>
+      <h2 class="about-title">We build what<br>others imagine.</h2>
+      <p class="about-text">
+        EyesCity is a software and hardware startup<br>
+        based in Daegu, South Korea.<br><br>
+        We operate HanLab, an AI-powered Korean<br>
+        political news analysis platform, alongside<br>
+        mobile apps and embedded hardware projects.<br><br>
+        Two divisions. One vision.
+      </p>
+    </div>
+    <div class="about-info">
+      <div class="info-row"><div class="info-key">company</div><div class="info-val">EyesCity (아이즈시티)</div></div>
+      <div class="info-row"><div class="info-key">reg. no.</div><div class="info-val">396-05-03335</div></div>
+      <div class="info-row"><div class="info-key">type</div><div class="info-val">Information & Communication</div></div>
+      <div class="info-row"><div class="info-key">founded</div><div class="info-val">April 1, 2026</div></div>
+      <div class="info-row"><div class="info-key">location</div><div class="info-val">Daegu, South Korea</div></div>
+      <div class="info-row"><div class="info-key">github</div><div class="info-val"><a href="https://github.com/choihimchan" target="_blank">github.com/choihimchan ↗</a></div></div>
+      <div class="info-row"><div class="info-key">contact</div><div class="info-val">admin@eyescity.kr</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="contact-inner fade-in">
+    <h2 class="contact-title">Get in touch.</h2>
+    <a href="mailto:admin@eyescity.kr" class="contact-email">admin@eyescity.kr</a>
+    <a href="mailto:admin@eyescity.kr" class="btn-primary">Send a Message →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy">© 2026 EyesCity. All rights reserved.</div>
+  <div class="footer-right">
+    <a href="https://github.com/choihimchan" target="_blank">GitHub</a>
+    <a href="mailto:admin@eyescity.kr">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+  // Fade in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Hero title - 단어별 hover 애니메이션
+  const heroTitle = document.getElementById('heroTitle');
+  const text = heroTitle.innerText;
+  const words = text.split(' ');
+  heroTitle.innerHTML = words.map(word =>
+    `<span class="word"><span>${word}</span></span>`
+  ).join(' ');
+</script>
+</body>
+</html>
