@@ -297,7 +297,7 @@
       <div class="info-row"><div class="info-key">founded</div><div class="info-val">April 1, 2026</div></div>
       <div class="info-row"><div class="info-key">location</div><div class="info-val">Daegu, South Korea</div></div>
       <div class="info-row"><div class="info-key">github</div><div class="info-val"><a href="https://github.com/choihimchan" target="_blank">github.com/choihimchan ↗</a></div></div>
-      <div class="info-row"><div class="info-key">contact</div><div class="info-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bedfdad3d7d0fedbc7dbcdddd7cac790d5cc">[email&#160;protected]</a></div></div>
+      <div class="info-row"><div class="info-key">contact</div><div class="info-val">admin@eyescity.kr</div></div>
     </div>
   </div>
 </section>
@@ -307,8 +307,8 @@
 <section id="contact">
   <div class="contact-inner fade-in">
     <h2 class="contact-title">Get in touch.</h2>
-    <a href="/cdn-cgi/l/email-protection#6f0e0b0206012f0a160a1c0c061b1641041d" class="contact-email"><span class="__cf_email__" data-cfemail="f8999c959196b89d819d8b9b918c81d6938a">[email&#160;protected]</span></a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeZvkGTrIFNUP1gjUolf4j4idaMB2f_3o7gRhDAGCL_lt7UcQ/viewform?usp=header" target="_blank" class="btn-primary">Send a Message →</a>
+    <a href="mailto:admin@eyescity.kr" class="contact-email">admin@eyescity.kr</a>
+    <a href="mailto:admin@eyescity.kr" class="btn-primary">Send a Message →</a>
   </div>
 </section>
 
@@ -316,15 +316,30 @@
   <div class="footer-copy">© 2026 EyesCity. All rights reserved.</div>
   <div class="footer-right">
     <a href="https://github.com/choihimchan" target="_blank">GitHub</a>
-    <a href="/cdn-cgi/l/email-protection#b0d1d4ddd9def0d5c9d5c3d3d9c4c99edbc2">Contact</a>
+    <a href="mailto:admin@eyescity.kr">Contact</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const heroTitle = document.getElementById('heroTitle');
+  const text = heroTitle.innerText;
+  const words = text.split(' ');
+  heroTitle.innerHTML = words.map(word =>
+    `<span class="word"><span>${word}</span></span>`
+  ).join(' ');
+</script>
+</body>
+</html>
