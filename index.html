@@ -26,7 +26,7 @@
     --border: rgba(255,255,255,0.07);
     --text: #e8e8e8; --muted: #555;
     --green: #22c55e; --green-dim: rgba(34,197,94,0.12);
-    --yellow: #fde047; /* 존재감 있는 노란색 추가 */
+    --yellow: #fde047;
     --mono: 'DM Mono', monospace; --sans: 'Syne', sans-serif;
   }
   html { scroll-behavior: smooth; }
@@ -49,34 +49,31 @@
   .hero-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
 
-  /* [대표님 아이디어!] 우측 여백 장식용 한글 키워드 스택 스타일 */
   .hero-decorative-keywords {
     position: absolute;
-    top: 160px; /* Daegu... 태그보다 살짝 아래 */
-    right: 48px; /* 사이드 패딩과 일치 */
+    top: 160px;
+    right: 48px;
     font-family: var(--mono);
     font-size: 11px;
-    color: rgba(34, 197, 94, 0.2); /* 아주 은은한 투명 그린 (20%) */
+    color: rgba(34, 197, 94, 0.2);
     text-align: right;
     line-height: 1.8;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    pointer-events: none; /* 마우스 선택 안 됨, 장식 전용 */
+    pointer-events: none;
     z-index: 1;
   }
 
-  /* [대표님 새로운 아이디어!] 우측 하단 인터랙티브 원자 그리드 캔버스 스타일 (수정됨) */
   #hero-atom-canvas {
     position: absolute;
-    bottom: 80px; /* footer 바로 위 */
-    right: 48px; /* 사이드 패딩과 일치 */
-    width: 400px; /* 적당한 크기의 영역 */
+    bottom: 80px;
+    right: 48px;
+    width: 400px;
     height: 300px;
-    z-index: 1; /* 텍스트 뒤에 배경처럼 */
-    pointer-events: none; /* 마우스 선택 안 됨 */
+    z-index: 1;
+    pointer-events: none;
   }
 
-  /* 모바일에서는 장식 요소들 숨김 처리 */
   @media (max-width: 1024px) {
     .hero-decorative-keywords, #hero-atom-canvas { display: none; }
   }
@@ -86,13 +83,12 @@
   .hero-title .word span { display: inline-block; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s; }
   .hero-title .word:hover span { transform: translateY(-6px); color: var(--green); }
 
-  /* [대표님 아이디어!] 한글 문구 추가 스타일 (수정됨) */
+  /* 한글 위주로 변경 */
   .hero-sub { font-size: clamp(16px, 2vw, 24px); font-weight: 400; letter-spacing: 0.02em; color: var(--muted); margin-bottom: 48px; font-family: var(--mono); transition: color 0.3s; }
   .hero-sub:hover { color: var(--text); }
-  /* 한글 보조 설명용 스타일 추가 */
-  .ko-subtext-muted { font-size: 0.8em; opacity: 0.8; }
 
-  .hero-desc { font-family: var(--mono); font-size: 13px; color: var(--muted); max-width: 480px; line-height: 1.9; margin-bottom: 64px; }
+  /* 한글 위주로 변경 */
+  .hero-desc { font-family: var(--mono); font-size: 14px; color: var(--text); max-width: 520px; line-height: 1.9; margin-bottom: 64px; opacity: 0.9; }
   .hero-cta { display: flex; gap: 16px; align-items: center; }
 
   .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--green); color: #000; font-family: var(--mono); font-size: 13px; font-weight: 500; text-decoration: none; border-radius: 4px; transition: opacity 0.2s, transform 0.2s; }
@@ -117,7 +113,8 @@
   .pillar-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.02em; transition: letter-spacing 0.3s, color 0.3s; }
   .pillar:hover .pillar-title { letter-spacing: 0; color: var(--green); }
   .pillar-sub { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 16px; }
-  .pillar-desc { font-family: var(--mono); font-size: 12px; color: #666; line-height: 1.9; margin-bottom: 32px; max-width: 400px; }
+  /* 한글 위주로 변경 */
+  .pillar-desc { font-family: var(--mono); font-size: 13px; color: #bbb; line-height: 1.9; margin-bottom: 32px; max-width: 400px; }
   .pillar-desc em { color: var(--green); font-style: normal; }
 
   .tech-highlight { border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; margin-bottom: 32px; background: rgba(34,197,94,0.03); transition: border-color 0.3s; }
@@ -150,10 +147,9 @@
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .about-title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; transition: letter-spacing 0.4s; }
   .about-title:hover { letter-spacing: -0.01em; }
-  .about-text { font-family: var(--mono); font-size: 13px; color: var(--muted); line-height: 1.9; }
-  /* 한글 보조 설명용 스타일 추가 */
-  .ko-subtext { font-size: 11px; color: #444; margin-top: 10px; display: block; letter-spacing: 0; }
-
+  /* 한글 위주로 변경 */
+  .about-text { font-family: var(--mono); font-size: 14px; color: #bbb; line-height: 1.9; }
+  
   .about-info { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
   .info-row { display: flex; padding: 20px 24px; border-bottom: 1px solid var(--border); gap: 24px; transition: background 0.2s, padding-left 0.2s; }
   .info-row:last-child { border-bottom: none; }
@@ -216,19 +212,13 @@
 
   <h1 class="hero-title" id="heroTitle">We make things that work.</h1>
 
-  <div class="hero-sub">Software. Hardware. End to end.<br><span class="ko-subtext-muted">소프트웨어. 하드웨어. 엔드 투 엔드.</span></div>
+  <div class="hero-sub">소프트웨어. 하드웨어. 엔드 투 엔드.</div>
 
   <p class="hero-desc">
-    From AI-powered news analysis platforms<br>
-    to embedded hardware systems —<br>
-    EyesCity builds technology that connects<br>
-    information to the real world.<br><br>
-    <span style="opacity: 0.8; font-size: 0.95em;">
-    AI 기반 뉴스 분석 플랫폼부터<br>
-    임베디드 하드웨어 시스템까지 —<br>
-    아이즈시티는 정보를 현실 세계로<br>
-    연결하는 기술을 만듭니다.
-    </span>
+    AI 기반 뉴스 분석 플랫폼 '한랩(HanLab)'부터<br>
+    정밀 제어 임베디드 하드웨어 시스템까지 —<br>
+    아이즈시티(EyesCity)는 상상 속의 아이디어를<br>
+    현실의 기술로 구현하는 딥테크 스타트업입니다.
   </p>
 
   <div class="hero-cta">
@@ -247,11 +237,10 @@
       <div class="pillar-title">Intelligence</div>
       <div class="pillar-sub">// Information Platform Division</div>
       <p class="pillar-desc">
-        We don't aggregate news. We understand it.<br>
-        Using <em>SBERT embeddings</em> and <em>HDBSCAN clustering</em>,
-        thousands of articles are grouped into meaningful
-        issue clusters — automatically, in real time.
-        <span class="ko-subtext">SBERT 임베딩과 HDBSCAN 클러스터링 기반 AI 자동 뉴스 분석 플랫폼 디비전입니다.</span>
+        단순한 뉴스 취합을 넘어, 데이터의 흐름을 이해합니다.<br>
+        <em>SBERT 임베딩</em>과 <em>HDBSCAN 클러스터링</em> 기술을 활용하여,
+        수천 건의 기사를 실시간으로 분석하고 유의미한 이슈 클러스터로 
+        자동 분류하는 AI 정보 플랫폼을 개발합니다.
       </p>
       <div class="tech-highlight">
         <div class="tech-highlight-label">Core Technology</div>
@@ -264,12 +253,12 @@
       </div>
       <ul class="pillar-list">
         <li>
-          <span class="name">HanLab</span>
+          <span class="name">HanLab (한랩)</span>
           <span class="tag-live">live</span>
           <a href="https://hanlab.app" target="_blank" class="pillar-link">hanlab.app ↗</a>
         </li>
         <li>
-          <span class="name">DongHunHam Analyzer</span>
+          <span class="name">동훈햄 분석기</span>
           <span class="tag-live">live</span>
         </li>
         <li>
@@ -285,11 +274,10 @@
       <div class="pillar-title">Embedded</div>
       <div class="pillar-sub">// Hardware Division</div>
       <p class="pillar-desc">
-        We build hardware that solves real problems.
-        From custom <em>UART scheduling protocols</em> on ESP32
-        to wireless analyzers and low-power display systems —
-        firmware and PCB, end to end.
-        <span class="ko-subtext">ESP32 기반 커스텀 프로토콜 및 하드웨어 제작(펌웨어, PCB 설계) 디비전입니다.</span>
+        물리적 세계의 문제를 해결하는 하드웨어를 만듭니다.<br>
+        ESP32 환경에 최적화된 <em>커스텀 UART 스케줄링 프로토콜</em>부터
+        초저전력 무선 환경 모니터링 시스템까지 —
+        펌웨어 작성과 PCB 설계의 전 과정을 직접 수행합니다.
       </p>
       <div class="tech-highlight">
         <div class="tech-highlight-label">Core Technology</div>
@@ -345,19 +333,15 @@
     <div>
       <h2 class="about-title">We build what<br>others imagine.</h2>
       <p class="about-text">
-        EyesCity is a software and hardware startup<br>
-        based in Daegu, South Korea.<br><br>
-        We operate HanLab, an AI-powered Korean<br>
-        political news analysis platform, alongside<br>
-        mobile apps and embedded hardware projects.<br><br>
-        Two divisions. One vision.
-        <span class="ko-subtext">아이즈시티는 대구 기반의 딥테크 벤처 스튜디오로 소프트웨어와 하드웨어, 두 영역을 아우르는 전문적인 솔루션을 제공합니다.</span>
+        아이즈시티(EyesCity)는 대구에 기반을 둔 소프트웨어 및 하드웨어 스타트업입니다.<br><br>
+        우리는 AI 한국 정치 뉴스 분석 플랫폼인 '한랩(HanLab)'과 모바일 애플리케이션을 서비스하며, 동시에 다양한 임베디드 하드웨어 프로젝트를 자체 개발하고 있습니다.<br><br>
+        소프트웨어와 하드웨어, 두 가지 영역을 아우르는 딥테크 벤처 스튜디오로서 상상 속의 아이디어를 현실의 결과물로 만들어냅니다.
       </p>
     </div>
     <div class="about-info">
-      <div class="info-row"><div class="info-key">company</div><div class="info-val">EyesCity (아이즈시티)</div></div>
+      <div class="info-row"><div class="info-key">company</div><div class="info-val">아이즈시티 (EyesCity)</div></div>
       <div class="info-row"><div class="info-key">reg. no.</div><div class="info-val">396-05-03335</div></div>
-      <div class="info-row"><div class="info-key">type</div><div class="info-val">Information & Communication</div></div>
+      <div class="info-row"><div class="info-key">type</div><div class="info-val">정보통신업 (Information & Communication)</div></div>
       <div class="info-row"><div class="info-key">founded</div><div class="info-val">April 1, 2026</div></div>
       <div class="info-row"><div class="info-key">location</div><div class="info-val">Daegu, South Korea</div></div>
       <div class="info-row"><div class="info-key">github</div><div class="info-val"><a href="https://github.com/choihimchan" target="_blank">github.com/choihimchan ↗</a></div></div>
@@ -409,53 +393,43 @@
     `<span class="word"><span>${word}</span></span>`
   ).join(' ');
 
-  // ---------------------------------------------------------
-  // [대표님 아이디어!] 인터랙티브 원자 그리드 캔버스 자바스크립트 로직 (수정됨)
-  // ---------------------------------------------------------
   const canvas = document.getElementById('hero-atom-canvas');
   const ctx = canvas.getContext('2d');
 
-  // 캔버스 크기 설정 (CSS 크기와 매칭)
   canvas.width = 400;
   canvas.height = 300;
 
-  // 파티클(원자 점) 설정
   let particles = [];
-  const numberOfParticles = 35; // 점의 갯수 (약간 늘려 존재감 증가)
-  const baseConnectionDistance = 100; // 점끼리 연결되는 거리 (약간 늘림)
-  const mouseInfluenceRadius = 150; // 마우스의 영향력 반경
-  const mouseForce = 0.5; // 마우스가 끌어당기는 힘의 세기
+  const numberOfParticles = 35; 
+  const baseConnectionDistance = 100; 
+  const mouseInfluenceRadius = 150; 
+  const mouseForce = 0.5; 
 
   const mouse = { x: null, y: null };
 
-  // 마우스 위치 업데이트
   window.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   });
 
-  // 파티클 클래스 정의
   class Particle {
     constructor() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.width;
-      this.size = 1.8; // 크기 증가 (1.2 -> 1.8, 굵게)
-      this.speedX = (Math.random() - 0.5) * 0.3; // 아주 천천히 이동
+      this.size = 1.8; 
+      this.speedX = (Math.random() - 0.5) * 0.3; 
       this.speedY = (Math.random() - 0.5) * 0.3;
-      this.opacity = Math.random() * 0.4 + 0.1; // 은은한 불투명도
+      this.opacity = Math.random() * 0.4 + 0.1; 
     }
 
-    // 파티클 업데이트 (마우스 인터랙션 포함)
     update() {
-      // 마우스 인터랙션: 커서 쪽으로 은근히 끌림
       if (mouse.x && mouse.y) {
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < mouseInfluenceRadius) {
-          // 영향력 반경 내에 있을 때 힘 계산
           let force = (mouseInfluenceRadius - distance) / mouseInfluenceRadius * mouseForce;
           let directionX = dx / distance;
           let directionY = dy / distance;
@@ -463,22 +437,18 @@
           this.speedX += directionX * force;
           this.speedY += directionY * force;
 
-          // 마우스 근처에서 불투명도 증가
           this.opacity = Math.min(this.opacity + 0.03, 0.7);
         } else {
-          // 마우스 영향에서 벗어날 때 자연스럽게 감속
           this.speedX *= 0.98;
           this.speedY *= 0.98;
           this.opacity = Math.max(this.opacity - 0.01, Math.random() * 0.4 + 0.1);
         }
       }
 
-      // 속도 제한 (너무 빨라지지 않게)
       const maxSpeed = 0.6;
       this.speedX = Math.max(Math.min(this.speedX, maxSpeed), -maxSpeed);
       this.speedY = Math.max(Math.min(this.speedY, maxSpeed), -maxSpeed);
 
-      // 기본 움직임 및 화면 경계 튕기기
       this.x += this.speedX;
       this.y += this.speedY;
 
@@ -486,9 +456,7 @@
       if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
     }
 
-    // 파티클 그리기
     draw() {
-      // 색상 변경: 노란색 계열, 존재감 증가 (opacity 곱하기)
       ctx.fillStyle = `rgba(253, 224, 71, ${this.opacity * 1.5})`; 
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -496,12 +464,10 @@
     }
   }
 
-  // 초기 파티클 생성
   for (let i = 0; i < numberOfParticles; i++) {
     particles.push(new Particle());
   }
 
-  // 파티클 연결 선 그리기 함수
   function drawLines() {
     for (let i = 0; i < particles.length; i++) {
       for (let j = i; j < particles.length; j++) {
@@ -510,11 +476,9 @@
         let distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < baseConnectionDistance) {
-          // 점끼리 가까울 때 얇은 선 그리기
           ctx.beginPath();
-          // 색상 변경: 노란색 계열, 존재감 증가 (opacity * 2)
           ctx.strokeStyle = `rgba(253, 224, 71, ${(baseConnectionDistance - distance) / baseConnectionDistance * 0.3})`;
-          ctx.lineWidth = 1.2; // 굵기 증가 (0.5 -> 1.2)
+          ctx.lineWidth = 1.2; 
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.stroke();
@@ -523,22 +487,20 @@
     }
   }
 
-  // 애니메이션 루프 함수
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // 이전 프레임 지우기
+    ctx.clearRect(0, 0, canvas.width, canvas.height); 
 
-    // 모든 파티클 업데이트 및 그리기
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
     }
 
-    drawLines(); // 점끼리 연결 선 그리기
+    drawLines(); 
 
-    requestAnimationFrame(animate); // 다음 프레임 요청
+    requestAnimationFrame(animate); 
   }
 
-  animate(); // 애니메이션 시작
+  animate(); 
 </script>
 </body>
 </html>
