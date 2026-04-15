@@ -3,31 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HanLab 동훈햄 분석기 | EyesCity Works</title>
-<meta name="description" content="SBERT+OpenAI 하이브리드 임베딩 + PCA + HDBSCAN 뉴스 클러스터링 AI 플랫폼. 비공개 API 리버스 엔지니어링으로 구현한 실시간 댓글 델타 트래킹 시스템.">
+
+<title>HanLab 동훈햄 분석기 개발기 - EyesCity | 딥테크 AI 여론 분석 플랫폼</title>
+<meta name="description" content="한동훈 관련 뉴스를 실시간 분석하는 AI 플랫폼 'HanLab 동훈햄 분석기' 개발기. SBERT/OpenAI 임베딩, PCA, HDBSCAN 클러스터링, 비공개 API 리버스 엔지니어링 등 풀스택 구현 과정을 공개합니다.">
+<meta name="keywords" content="아이즈시티, EyesCity, 한랩, HanLab, 동훈햄 분석기, AI, 뉴스분석, 임베디드, 스타트업, 딥테크, 소프트웨어 개발, 하드웨어 제작, 한동훈, SEO">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #080808; --bg2: #0f0f0f; --bg3: #141414;
+  --bg4: rgba(255, 255, 255, 0.04); /* Smoother background */
   --border: rgba(255,255,255,0.07);
-  --text: #e8e8e8; --muted: #555; --muted2: #777;
+  --text: #e8e8e8; --muted: #555; --muted2: #777; --muted3: #b3b3b3; /* Brightened muted text */
   --green: #22c55e; --green-dim: rgba(34,197,94,0.12);
-  --mono: 'DM Mono', monospace; --sans: 'Syne', sans-serif;
+  --green-neon: rgba(34,197,94,0.3);
+  --mono: 'DM Mono', monospace; --sans: 'Syne', sans-serif; --sans-body: 'Pretendard', sans-serif; /* Smoother body sans */
 }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+/* 🔥 폰트 디자인: Pretendard를 기본 바디 폰트로 설정 & 행간 개선 🔥 */
+body { background: var(--bg); color: var(--text); font-family: var(--sans-body); font-size: 15px; line-height: 1.8; overflow-x: hidden; }
 body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.4; }
 
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 48px; border-bottom: 1px solid var(--border); background: rgba(8,8,8,0.9); backdrop-filter: blur(12px); }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px 48px; border-bottom: 1px solid transparent; background: rgba(8,8,8,0.9); backdrop-filter: blur(12px); transition: border-color 0.3s; }
+nav:hover { border-color: var(--border); }
 .nav-logo { font-family: var(--sans); font-weight: 800; font-size: 18px; letter-spacing: -0.5px; color: #fff; text-decoration: none; transition: opacity 0.2s; }
 .nav-logo:hover { opacity: 0.7; }
 .nav-logo span { color: var(--green); }
-.nav-back { font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
-.nav-back:hover { color: var(--text); }
+/* 🔥 PC 탭 디자인 업그레이드 (시인성 강화) 🔥 */
+.nav-back { 
+  font-family: var(--mono); font-size: 12px; color: #b3b3b3; text-decoration: none; letter-spacing: 0.05em; padding: 10px 22px;
+  background: var(--bg4); border: 1px solid var(--border); border-radius: 100px;
+  transition: all 0.3s ease; 
+}
+.nav-back:hover { 
+  color: var(--green); border-color: var(--green);
+  text-shadow: 0 0 10px var(--green-neon); 
+  transform: translateY(-2px);
+}
 
 .hero { padding: 160px 48px 80px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
 .hero::after { content: ''; position: absolute; top: 0; right: 0; width: 600px; height: 600px; background: radial-gradient(circle, rgba(34,197,94,0.04) 0%, transparent 70%); pointer-events: none; }
@@ -37,8 +52,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
 .hero-tag { font-family: var(--mono); font-size: 10px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; color: var(--muted2); letter-spacing: 0.05em; }
 .hero-tag.green { border-color: rgba(34,197,94,0.3); color: var(--green); background: var(--green-dim); }
-.hero-title { font-size: clamp(40px, 6vw, 76px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; }
-.hero-sub { font-family: var(--mono); font-size: 13px; color: var(--muted2); max-width: 680px; line-height: 2; margin-bottom: 48px; }
+/* 🔥 타이틀 애니메이션 & Glow 효과 추가 🔥 */
+.hero-title { font-size: clamp(32px, 5vw, 64px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; text-shadow: 0 0 15px rgba(255,255,255,0.4); }
+.hero-sub { font-family: var(--sans-body); font-size: 14px; color: #bbb; max-width: 680px; line-height: 2.0; margin-bottom: 48px; }
 .hero-meta { display: flex; gap: 48px; flex-wrap: wrap; }
 .meta-item { display: flex; flex-direction: column; gap: 4px; }
 .meta-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
@@ -46,32 +62,49 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .meta-value a { color: var(--green); text-decoration: none; transition: opacity 0.2s; }
 .meta-value a:hover { opacity: 0.7; }
 
+/* Placeholder for Dashboard Screenshot */
+.dashboard-screenshot {
+  background: rgba(34, 197, 94, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #444;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 80px;
+}
+
 section { padding: 80px 48px; border-bottom: 1px solid var(--border); }
 .section-label { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 48px; display: flex; align-items: center; gap: 16px; }
 .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--green); opacity: 0.4; }
-.section-title { font-size: clamp(26px, 3vw, 36px); font-weight: 800; letter-spacing: -0.02em; color: #fff; margin-bottom: 32px; line-height: 1.1; }
+/* 🔥 SEO 수정: div를 h2로 변경 🔥 */
+.section-title { font-size: clamp(22px, 2.5vw, 32px); font-weight: 800; letter-spacing: -0.02em; color: #fff; margin-bottom: 32px; line-height: 1.2; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
 .numbers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--border); }
 .number-item { background: var(--bg); padding: 40px 32px; transition: background 0.2s; }
 .number-item:hover { background: var(--bg2); }
-.number-val { font-size: clamp(36px, 5vw, 52px); font-weight: 800; color: var(--green); letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
-.number-label { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+.number-val { font-size: clamp(32px, 4vw, 44px); font-weight: 800; color: var(--green); letter-spacing: -0.03em; line-height: 1.0; margin-bottom: 8px; text-shadow: 0 0 10px var(--green-neon); }
+.number-label { font-family: var(--sans-body); font-size: 12px; color: var(--muted); letter-spacing: 0.05em; font-weight: 500; }
 
 .algo-timeline { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
 .algo-item { background: var(--bg); padding: 36px 40px; display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 40px; align-items: start; transition: background 0.2s; }
 .algo-item:hover { background: var(--bg2); }
 .algo-item.current { background: rgba(34,197,94,0.03); border-left: 2px solid var(--green); }
-.algo-version { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--muted); line-height: 1; padding-top: 4px; }
-.algo-item.current .algo-version { color: var(--green); }
+.algo-version { font-family: var(--mono); font-size: 20px; font-weight: 500; color: var(--muted); line-height: 1; padding-top: 4px; }
+.algo-item.current .algo-version { color: var(--green); text-shadow: 0 0 8px var(--green-neon); }
 .algo-name { font-family: var(--mono); font-size: 13px; color: var(--text); margin-bottom: 8px; font-weight: 500; }
-.algo-desc { font-family: var(--mono); font-size: 12px; color: var(--muted2); line-height: 1.9; }
+.algo-desc { font-family: var(--mono); font-size: 12px; color: #bbb; line-height: 1.9; }
 .algo-result-badge { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 3px 8px; border-radius: 2px; margin-top: 10px; }
 .badge-fail { background: rgba(255,59,48,0.1); color: #ff3b30; }
 .badge-partial { background: rgba(251,191,36,0.1); color: #fbbf24; }
 .badge-pass { background: var(--green-dim); color: var(--green); }
 
 .code-block { background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 28px 32px; margin-top: 1px; overflow-x: auto; }
-.code-block pre { font-family: var(--mono); font-size: 12px; color: #777; line-height: 2; }
+.code-block pre { font-family: var(--mono); font-size: 12px; color: #777; line-height: 2.0; }
 .code-block pre .kw { color: #c084fc; }
 .code-block pre .fn { color: #38bdf8; }
 .code-block pre .cm { color: #3a3a3a; font-style: italic; }
@@ -81,9 +114,9 @@ section { padding: 80px 48px; border-bottom: 1px solid var(--border); }
 .re-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-bottom: 1px; }
 .re-step { background: var(--bg); padding: 32px 28px; transition: background 0.2s; }
 .re-step:hover { background: var(--bg2); }
-.re-step-num { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-bottom: 12px; letter-spacing: 0.1em; }
+.re-step-num { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-bottom: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
 .re-step-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-.re-step-desc { font-family: var(--mono); font-size: 11px; color: var(--muted2); line-height: 1.9; }
+.re-step-desc { font-family: var(--sans-body); font-size: 12px; color: #bbb; line-height: 1.9; }
 .re-step-desc code { background: rgba(255,255,255,0.05); padding: 1px 5px; border-radius: 2px; color: #bbb; }
 
 .arch-diagram { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; padding: 48px; margin-bottom: 40px; overflow-x: auto; }
@@ -101,20 +134,21 @@ section { padding: 80px 48px; border-bottom: 1px solid var(--border); }
 .stack-item:hover { background: var(--bg2); }
 .stack-item:hover::after { transform: scaleX(1); }
 .stack-name { font-family: var(--mono); font-size: 14px; color: var(--text); margin-bottom: 4px; transition: color 0.2s, transform 0.2s; display: inline-block; }
-.stack-item:hover .stack-name { color: var(--green); transform: translateX(4px); }
-.stack-role { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 8px; }
-.stack-detail { font-family: var(--mono); font-size: 11px; color: #444; line-height: 1.7; }
+.stack-item:hover .stack-name { color: var(--green); transform: translateX(4px); text-shadow: 0 0 10px var(--green-neon); }
+.stack-role { font-family: var(--sans-body); font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.stack-detail { font-family: var(--sans-body); font-size: 12px; color: #bbb; line-height: 1.7; }
 
-.cta-title { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.1; margin-bottom: 24px; }
-.cta-title span { color: var(--green); }
-.cta-desc { font-family: var(--mono); font-size: 13px; color: var(--muted2); max-width: 500px; line-height: 1.9; margin-bottom: 32px; }
+/* 🔥 CTA 영역: 더 확실하고 전문적인 카피라이팅 🔥 */
+.cta-title { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.2; margin-bottom: 24px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+.cta-title span { color: var(--green); text-shadow: 0 0 15px var(--green-neon); }
+.cta-desc { font-family: var(--sans-body); font-size: 14px; color: #bbb; max-width: 500px; line-height: 1.9; margin-bottom: 32px; }
 .cta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--green); color: #000; font-family: var(--mono); font-size: 13px; font-weight: 500; text-decoration: none; border-radius: 4px; transition: opacity 0.2s, transform 0.2s; }
 .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
-.btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 13px; text-decoration: none; border-radius: 4px; transition: all 0.2s; }
+.btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border: 1px solid var(--border); color: #b3b3b3; font-family: var(--mono); font-size: 13px; text-decoration: none; border-radius: 4px; transition: all 0.2s; }
 .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--text); transform: translateY(-2px); }
 
-footer { padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
+footer { padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); }
 .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
 .footer-right a { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; margin-left: 16px; transition: color 0.2s; }
 .footer-right a:hover { color: var(--text); }
@@ -138,7 +172,7 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
 
 <nav>
   <a href="https://eyescity.kr" class="nav-logo">아이즈시티 <span>EyesCity</span></a>
-  <a href="https://eyescity.kr" class="nav-back">← Works</a>
+  <a href="https://eyescity.kr" class="nav-back">← EyesCity Works</a>
 </nav>
 
 <div class="hero">
@@ -157,8 +191,7 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
   </div>
   <h1 class="hero-title">HanLab<br>동훈햄 분석기</h1>
   <p class="hero-sub">
-    실시간 뉴스 클러스터링 AI 플랫폼. TF-IDF → KMeans → SBERT 단독 → SBERT+OpenAI 하이브리드+PCA+HDBSCAN으로 이어지는 알고리즘 진화 과정.<br>
-    비공개 API 리버스 엔지니어링으로 구현한 댓글 델타 트래킹 시스템. 웹 서비스에서 Android 앱 출시까지 풀스택 단독 설계 및 구현.
+    한동훈 관련 뉴스를 실시간 분석하는 AI 플랫폼 'HanLab 동훈햄 분석기' 개발기. TF-IDF에서 SBERT+OpenAI 하이브리드 임베딩으로 이어지는 알고리즘 진화 과정. 비공개 API 리버스 엔지니어링으로 구현한 댓글 델타 트래킹 시스템 등 풀스택 구현 과정을 공개합니다.
   </p>
   <div class="hero-meta">
     <div class="meta-item">
@@ -180,6 +213,10 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
   </div>
 </div>
 
+<section class="fade-in" style="padding-bottom: 0;">
+  <img src="https://eyescity.kr/assets/hanlab_dashboard_preview.png" alt="동훈햄 분석기 실시간 뉴스 클러스터링 및 여론 트래킹 대시보드 화면" style="width: 100%; border-radius: 4px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+</section>
+
 <section class="fade-in">
   <div class="section-label">Results</div>
   <div class="numbers-grid">
@@ -194,7 +231,7 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
 
 <section class="fade-in">
   <div class="section-label">Algorithm Evolution</div>
-  <div class="section-title">클러스터링 알고리즘 진화 과정</div>
+  <h2 class="section-title">클러스터링 알고리즘 진화 과정</h2>
   <div class="algo-timeline">
     <div class="algo-item">
       <div class="algo-version">v1</div>
@@ -203,10 +240,10 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
         <div class="algo-desc">단어 빈도 기반 벡터화.<br>k=5 클러스터 수 고정.</div>
       </div>
       <div>
-        <div class="algo-desc">제목에 동일 단어 반복되는 뉴스 특성상 단순 키워드 매칭은 잘 작동. 그러나 k를 사전에 지정해야 해서 이슈가 2개인 날도 5개 클러스터 강제 생성.</div>
+        <div class="algo-desc">단순 키워드 매칭은 작동. 사전에 지정해야 해서 이슈 수에 대응 미흡. 빈 클러스터 및 노이즈 기사 강제 배정 문제.</div>
       </div>
       <div>
-        <div class="algo-desc" style="color:#444;">의미가 다른 기사 혼재. 빈 클러스터 문제. 노이즈 기사 강제 배정.</div>
+        <div class="algo-desc" style="color:#444;">의미 다른 기사 혼재.</div>
         <span class="algo-result-badge badge-fail">클러스터 수 고정 문제</span>
       </div>
     </div>
@@ -214,13 +251,13 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
       <div class="algo-version">v2</div>
       <div>
         <div class="algo-name">SBERT 단독<br>+ HDBSCAN</div>
-        <div class="algo-desc">ko-sbert-sts 한국어 모델.<br>밀도 기반 클러스터링 도입.</div>
+        <div class="algo-desc">ko-sbert-sts 모델.<br>밀도 기반 클러스터링.</div>
       </div>
       <div>
-        <div class="algo-desc">클러스터 수 자동 결정. 노이즈 포인트 제거. "탈당"과 "복귀" 같은 반대 의미 기사가 다른 클러스터로 분리됨.</div>
+        <div class="algo-desc">클러스터 수 자동 결정. 반대 의미 기사 분리됨.</div>
       </div>
       <div>
-        <div class="algo-desc" style="color:#444;">뉴스 제목의 짧은 압축 특성상 SBERT 단독으로는 문맥 손실. 분위기 유사한 전혀 다른 이슈가 묶이는 케이스 발생.</div>
+        <div class="algo-desc" style="color:#444;">제목 짧은 압축 특성상 SBERT 단독으로 문맥 손실.</div>
         <span class="algo-result-badge badge-partial">문맥 손실 문제</span>
       </div>
     </div>
@@ -231,10 +268,10 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
         <div class="algo-desc">text-embedding-ada-002.<br>1536차원 고밀도 벡터.</div>
       </div>
       <div>
-        <div class="algo-desc">범용 언어 이해력 높음. 제목만으로도 문맥 파악 가능. 그러나 한국어 뉴스 도메인에 특화되지 않아 정치 뉴앙스 포착 미흡.</div>
+        <div class="algo-desc">제목만으로도 문맥 파악 가능. 한국 정치 뉴스 도메인 특화 미흡.</div>
       </div>
       <div>
-        <div class="algo-desc" style="color:#444;">API 호출 비용 발생. 실시간 파이프라인 레이턴시 병목. 한국 정치 뉴스 도메인 특화 성능 부족.</div>
+        <div class="algo-desc" style="color:#444;">비용 발생. 실시간 병목.</div>
         <span class="algo-result-badge badge-partial">비용·레이턴시 문제</span>
       </div>
     </div>
@@ -242,13 +279,13 @@ footer { padding: 32px 48px; display: flex; justify-content: space-between; alig
       <div class="algo-version">v4</div>
       <div>
         <div class="algo-name">SBERT + OpenAI<br>하이브리드<br>+ PCA + HDBSCAN</div>
-        <div class="algo-desc" style="color:var(--green);">현재 프로덕션 적용.</div>
+        <div class="algo-desc" style="color:var(--green);">현재 프로덕션 적용 중.</div>
       </div>
       <div>
-        <div class="algo-desc">두 임베딩 벡터 concatenate 후 PCA 128차원 압축 → HDBSCAN. SBERT의 한국어 도메인 특화 + OpenAI 범용 문맥 이해 결합. 제목×2 가중 + 본문 3문장 입력 최적화.</div>
+        <div class="algo-desc">SBERT 한국어 도메인 특화 + OpenAI 범용 문맥 결합. PCA 차원 압축 후 HDBSCAN. 제목×2 가중 최적화.</div>
       </div>
       <div>
-        <div class="algo-desc" style="color:#666;">인물 태깅으로 동일 이름 혼재 방지. 노이즈 기사 근접 클러스터 재배정으로 누락 최소화. 이슈 수 자동 결정으로 매일 달라지는 뉴스 사이클 대응.</div>
+        <div class="algo-desc" style="color:#666;">이슈 수 자동 결정. 인물 태깅으로 동일 이름 혼재 방지.</div>
         <span class="algo-result-badge badge-pass">프로덕션 적용 중</span>
       </div>
     </div>
@@ -275,22 +312,22 @@ labels = hdbscan.HDBSCAN(
 
 <section class="fade-in">
   <div class="section-label">Reverse Engineering</div>
-  <div class="section-title">댓글 급상승 감지 시스템<br>— 비공개 API 델타 트래킹</div>
+  <h2 class="section-title">댓글 급상승 감지 시스템<br>— 비공개 API 델타 트래킹</h2>
   <div class="re-flow">
     <div class="re-step">
       <div class="re-step-num">STEP 01</div>
       <div class="re-step-title">비공개 API 역추적</div>
-      <div class="re-step-desc">네이버 뉴스는 댓글 수 공개 API를 제공하지 않음. 브라우저 DevTools Network 탭으로 실제 댓글 수를 반환하는 내부 엔드포인트 역추적.<br><br><code>comment.news.naver.com/comment/listCount</code> 파라미터 구조 분석 및 요청 재현.</div>
+      <div class="re-step-desc">브라우저 DevTools Network 탭으로 실제 댓글 수를 반환하는 내부 엔드포인트 역추적.<br><br><code>comment.news.naver.com/comment/listCount</code> 파라미터 구조 분석 및 요청 재현.Spoofing headers.</div>
     </div>
     <div class="re-step">
       <div class="re-step-num">STEP 02</div>
       <div class="re-step-title">델타 트래킹 설계</div>
-      <div class="re-step-desc">절대 댓글 수보다 <code>증가량(Δ)</code>이 화제성 지표로 유효함. 스캔 주기마다 이전 수치와 비교해 증가분만 추출하는 스냅샷 델타 구조 설계.<br><br>급상승 TOP 10 / 최다댓글 TOP 10 이중 랭킹 운영.</div>
+      <div class="re-step-desc">절대 댓글 수보다 <code>증가량(Δ)</code>이 화제성 지표로 유효함. 스캔 주기마다 증가분만 추출하는 스냅샷 델타 구조 설계.<br><br>급상승 / 최다댓글 이중 랭킹 운영.</div>
     </div>
     <div class="re-step">
       <div class="re-step-num">STEP 03</div>
       <div class="re-step-title">20분 주기 파이프라인</div>
-      <div class="re-step-desc">cron으로 <code>comment_radar.py</code> 20분마다 실행. 수집 대상 기사를 SQLite에서 동적 조회하여 API 호출 최소화. 결과 JSON 직렬화 → Streamlit 폴링.</div>
+      <div class="re-step-desc">cron으로 <code>comment_radar.py</code> 20분마다 실행. 수집 대상 기사를SQLite WAL에서 동적 조회하여 호출 최소화. 직렬화 → Streamlit 폴링.</div>
     </div>
     <div class="re-step">
       <div class="re-step-num">STEP 04</div>
@@ -365,17 +402,17 @@ labels = hdbscan.HDBSCAN(
 <section class="fade-in">
   <div class="section-label">Tech Stack</div>
   <div class="stack-grid">
-    <div class="stack-item"><div class="stack-name">Python 3.12</div><div class="stack-role">Core Language</div><div class="stack-detail">전체 백엔드, AI 파이프라인, 크롤링</div></div>
-    <div class="stack-item"><div class="stack-name">SBERT (ko-sbert-sts)</div><div class="stack-role">Korean NLP</div><div class="stack-detail">한국어 뉴스 도메인 특화 임베딩 768d</div></div>
+    <div class="stack-item"><div class="stack-name">Python 3.12</div><div class="stack-role">Core Language</div><div class="stack-detail">백엔드, AI 파이프라인, 크롤링</div></div>
+    <div class="stack-item"><div class="stack-name">SBERT</div><div class="stack-role">Korean NLP</div><div class="stack-detail">ko-sbert-sts 한국어 특화 임베딩 768d</div></div>
     <div class="stack-item"><div class="stack-name">OpenAI Embeddings</div><div class="stack-role">Semantic Understanding</div><div class="stack-detail">범용 문맥 이해 1536d, SBERT와 하이브리드</div></div>
     <div class="stack-item"><div class="stack-name">PCA + HDBSCAN</div><div class="stack-role">Clustering Pipeline</div><div class="stack-detail">차원 압축 후 밀도 기반 자동 클러스터링</div></div>
-    <div class="stack-item"><div class="stack-name">FastAPI</div><div class="stack-role">REST API</div><div class="stack-detail">앱 전용 6개 엔드포인트, Pydantic 검증</div></div>
+    <div class="stack-item"><div class="stack-name">FastAPI</div><div class="stack-role">REST API</div><div class="stack-detail">앱 전용 엔드포인트, Pydantic 검증</div></div>
     <div class="stack-item"><div class="stack-name">Streamlit</div><div class="stack-role">Web Frontend</div><div class="stack-detail">커스텀 CSS + components.html 하이브리드</div></div>
-    <div class="stack-item"><div class="stack-name">React Native / Expo</div><div class="stack-role">Mobile</div><div class="stack-detail">SDK 54, expo-router, EAS Build, FCM</div></div>
-    <div class="stack-item"><div class="stack-name">Supabase</div><div class="stack-role">Auth + Community</div><div class="stack-detail">Google OAuth, 게시판/댓글/투표/프로필</div></div>
-    <div class="stack-item"><div class="stack-name">SQLite WAL</div><div class="stack-role">Database</div><div class="stack-detail">Write-Ahead Logging, 크롤러-API 동시성</div></div>
+    <div class="stack-item"><div class="stack-name">React Native / Expo</div><div class="stack-role">Mobile</div><div class="stack-detail">expo-router, EAS Build, FCM</div></div>
+    <div class="stack-item"><div class="stack-name">Supabase</div><div class="stack-role">Auth + Community</div><div class="stack-detail">Google OAuth, 게시판, 댓글, 투표</div></div>
+    <div class="stack-item"><div class="stack-name">SQLite WAL</div><div class="stack-role">Database</div><div class="stack-detail">크롤러-API 동시성 제어</div></div>
     <div class="stack-item"><div class="stack-name">Firebase FCM</div><div class="stack-role">Push Notification</div><div class="stack-detail">댓글 임계값 초과 시 앱 푸시 자동 발송</div></div>
-    <div class="stack-item"><div class="stack-name">Nginx</div><div class="stack-role">Reverse Proxy</div><div class="stack-detail">포트 8501/8001 프록시, SSL 종단</div></div>
+    <div class="stack-item"><div class="stack-name">Nginx</div><div class="stack-role">Reverse Proxy</div><div class="stack-detail">프록시, SSL 종단</div></div>
     <div class="stack-item"><div class="stack-name">AWS EC2</div><div class="stack-role">Infrastructure</div><div class="stack-detail">t2.medium, systemd 서비스, cron 파이프라인</div></div>
   </div>
 </section>
@@ -392,8 +429,8 @@ labels = hdbscan.HDBSCAN(
 <footer>
   <div class="footer-copy">© 2026 아이즈시티 EyesCity. All rights reserved.</div>
   <div class="footer-right">
-    <a href="https://eyescity.kr">Home</a>
-    <a href="https://hanlab.cloud" target="_blank">HanLab</a>
+    <a href="https://eyescity.kr">EyesCity Home</a>
+    <a href="https://hanlab.cloud" target="_blank">HanLab Service</a>
     <a href="mailto:admin@eyescity.kr">Contact</a>
   </div>
 </footer>
