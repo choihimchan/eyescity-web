@@ -3,22 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>아이즈시티(EyesCity) | 딥테크 벤처 스튜디오</title>
-<meta name="description" content="아이즈시티(EyesCity) — 소프트웨어와 하드웨어를 만드는 대구 스타트업. AI 뉴스 분석 플랫폼 '한랩(HanLab)' 및 '동훈햄 분석기' 제작사.">
-<meta name="keywords" content="아이즈시티, EyesCity, 동훈햄 분석기, HanLab, 뉴스분석, AI, 임베디드, 스타트업, 대구 스타트업, 딥테크, 소프트웨어 개발, 하드웨어 제작">
-<meta name="author" content="EyesCity">
 
-<meta property="og:title" content="아이즈시티(EyesCity) | 딥테크 벤처 스튜디오">
-<meta property="og:description" content="소프트웨어와 하드웨어, 두 가지를 만드는 대구 스타트업. AI 뉴스 분석과 임베디드 하드웨어 개발.">
+<title>아이즈시티 EyesCity | 딥테크 벤처 스튜디오</title>
+<meta name="description" content="아이즈시티 EyesCity는 AI 서비스와 임베디드 하드웨어를 만드는 딥테크 벤처 스튜디오입니다. 한랩(HanLab)과 다양한 분석·개발 프로젝트를 운영합니다.">
+<meta name="keywords" content="아이즈시티, EyesCity, 한랩, HanLab, 동훈햄 분석기, AI, 뉴스분석, 임베디드, 스타트업, 딥테크, 소프트웨어 개발, 하드웨어 제작">
+<meta name="author" content="아이즈시티 EyesCity">
+
+<meta property="og:title" content="아이즈시티 EyesCity | 딥테크 벤처 스튜디오">
+<meta property="og:description" content="아이즈시티 EyesCity는 AI 서비스와 임베디드 하드웨어를 만드는 딥테크 벤처 스튜디오입니다.">
 <meta property="og:url" content="https://eyescity.kr">
 <meta property="og:type" content="website">
+
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="아이즈시티(EyesCity) | 딥테크 벤처 스튜디오">
-<meta name="twitter:description" content="소프트웨어와 하드웨어, 두 가지를 만드는 대구 스타트업.">
+<meta name="twitter:title" content="아이즈시티 EyesCity | 딥테크 벤처 스튜디오">
+<meta name="twitter:description" content="아이즈시티 EyesCity는 AI 서비스와 임베디드 하드웨어를 만드는 딥테크 벤처 스튜디오입니다.">
+
 <meta name="naver-site-verification" content="d520e18d4652f806da34a934a3f6b4526faa92a6" />
 <link rel="canonical" href="https://eyescity.kr">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "아이즈시티 EyesCity",
+  "alternateName": ["아이즈시티", "EyesCity"],
+  "url": "https://eyescity.kr"
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -83,12 +98,10 @@
   .hero-title .word span { display: inline-block; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s; }
   .hero-title .word:hover span { transform: translateY(-6px); color: var(--green); }
 
-  /* 한글 위주로 변경 */
   .hero-sub { font-size: clamp(16px, 2vw, 24px); font-weight: 400; letter-spacing: 0.02em; color: var(--muted); margin-bottom: 48px; font-family: var(--mono); transition: color 0.3s; }
   .hero-sub:hover { color: var(--text); }
 
-  /* 한글 위주로 변경 */
-  .hero-desc { font-family: var(--mono); font-size: 14px; color: var(--text); max-width: 520px; line-height: 1.9; margin-bottom: 64px; opacity: 0.9; }
+  .hero-desc { font-family: var(--mono); font-size: 14px; color: var(--text); max-width: 620px; line-height: 1.9; margin-bottom: 64px; opacity: 0.9; }
   .hero-cta { display: flex; gap: 16px; align-items: center; }
 
   .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--green); color: #000; font-family: var(--mono); font-size: 13px; font-weight: 500; text-decoration: none; border-radius: 4px; transition: opacity 0.2s, transform 0.2s; }
@@ -113,7 +126,6 @@
   .pillar-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.02em; transition: letter-spacing 0.3s, color 0.3s; }
   .pillar:hover .pillar-title { letter-spacing: 0; color: var(--green); }
   .pillar-sub { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 16px; }
-  /* 한글 위주로 변경 */
   .pillar-desc { font-family: var(--mono); font-size: 13px; color: #bbb; line-height: 1.9; margin-bottom: 32px; max-width: 400px; }
   .pillar-desc em { color: var(--green); font-style: normal; }
 
@@ -147,9 +159,8 @@
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .about-title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 24px; transition: letter-spacing 0.4s; }
   .about-title:hover { letter-spacing: -0.01em; }
-  /* 한글 위주로 변경 */
   .about-text { font-family: var(--mono); font-size: 14px; color: #bbb; line-height: 1.9; }
-  
+
   .about-info { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
   .info-row { display: flex; padding: 20px 24px; border-bottom: 1px solid var(--border); gap: 24px; transition: background 0.2s, padding-left 0.2s; }
   .info-row:last-child { border-bottom: none; }
@@ -187,7 +198,7 @@
 <body>
 
 <nav id="nav">
-  <a href="#" class="nav-logo">Eyes<span>City</span></a>
+  <a href="#" class="nav-logo">아이즈시티 <span>EyesCity</span></a>
   <ul class="nav-links">
     <li><a href="#intelligence">Intelligence</a></li>
     <li><a href="#embedded">Embedded</a></li>
@@ -201,24 +212,23 @@
 
   <div class="hero-decorative-keywords">
     <span>아이즈시티</span><br>
-    <span>스타트업벤처</span><br>
+    <span>EyesCity</span><br>
+    <span>딥테크벤처</span><br>
     <span>소프트웨어</span><br>
     <span>하드웨어제작</span><br>
-    <span>대구IT스튜디오</span><br>
-    <span>엔드투엔드개발</span>
+    <span>대구스타트업</span>
   </div>
 
   <canvas id="hero-atom-canvas"></canvas>
 
-  <h1 class="hero-title" id="heroTitle">We make things that work.</h1>
+  <h1 class="hero-title" id="heroTitle">아이즈시티 EyesCity</h1>
 
-  <div class="hero-sub">소프트웨어. 하드웨어. 엔드 투 엔드.</div>
+  <div class="hero-sub">We make things that work.</div>
 
   <p class="hero-desc">
-    AI 기반 뉴스 분석 플랫폼 '한랩(HanLab)'부터<br>
-    정밀 제어 임베디드 하드웨어 시스템까지 —<br>
-    아이즈시티(EyesCity)는 상상 속의 아이디어를<br>
-    현실의 기술로 구현하는 딥테크 스타트업입니다.
+    소프트웨어. 하드웨어. 엔드 투 엔드.<br>
+    아이즈시티 EyesCity는 AI 서비스와 임베디드 하드웨어를 만드는 딥테크 벤처 스튜디오입니다.<br>
+    한랩(HanLab) 같은 정보 분석 플랫폼부터 정밀 제어 임베디드 시스템까지 직접 설계하고 구현합니다.
   </p>
 
   <div class="hero-cta">
@@ -239,7 +249,7 @@
       <p class="pillar-desc">
         단순한 뉴스 취합을 넘어, 데이터의 흐름을 이해합니다.<br>
         <em>SBERT 임베딩</em>과 <em>HDBSCAN 클러스터링</em> 기술을 활용하여,
-        수천 건의 기사를 실시간으로 분석하고 유의미한 이슈 클러스터로 
+        수천 건의 기사를 실시간으로 분석하고 유의미한 이슈 클러스터로
         자동 분류하는 AI 정보 플랫폼을 개발합니다.
       </p>
       <div class="tech-highlight">
@@ -331,7 +341,7 @@
   <div class="section-label">About</div>
   <div class="about-grid fade-in">
     <div>
-      <h2 class="about-title">We build what<br>others imagine.</h2>
+      <h2 class="about-title">아이즈시티는 상상을<br>현실로 만듭니다.</h2>
       <p class="about-text">
         아이즈시티(EyesCity)는 대구에 기반을 둔 소프트웨어 및 하드웨어 스타트업입니다.<br><br>
         우리는 AI 한국 정치 뉴스 분석 플랫폼인 '한랩(HanLab)'과 모바일 애플리케이션을 서비스하며, 동시에 다양한 임베디드 하드웨어 프로젝트를 자체 개발하고 있습니다.<br><br>
@@ -362,7 +372,7 @@
 
 <footer>
   <div class="footer-copy">
-    © 2026 EyesCity. All rights reserved.
+    © 2026 아이즈시티 EyesCity. All rights reserved.
     <br>
     <span style="font-size: 9px; opacity: 0.5;">아이즈시티 | 대표자 최힘찬 | 대구 소재 스타트업벤처 | 사업자번호 396-05-03335</span>
   </div>
@@ -400,10 +410,10 @@
   canvas.height = 300;
 
   let particles = [];
-  const numberOfParticles = 35; 
-  const baseConnectionDistance = 100; 
-  const mouseInfluenceRadius = 150; 
-  const mouseForce = 0.5; 
+  const numberOfParticles = 35;
+  const baseConnectionDistance = 100;
+  const mouseInfluenceRadius = 150;
+  const mouseForce = 0.5;
 
   const mouse = { x: null, y: null };
 
@@ -416,11 +426,11 @@
   class Particle {
     constructor() {
       this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.width;
-      this.size = 1.8; 
-      this.speedX = (Math.random() - 0.5) * 0.3; 
+      this.y = Math.random() * canvas.height;
+      this.size = 1.8;
+      this.speedX = (Math.random() - 0.5) * 0.3;
       this.speedY = (Math.random() - 0.5) * 0.3;
-      this.opacity = Math.random() * 0.4 + 0.1; 
+      this.opacity = Math.random() * 0.4 + 0.1;
     }
 
     update() {
@@ -441,7 +451,7 @@
         } else {
           this.speedX *= 0.98;
           this.speedY *= 0.98;
-          this.opacity = Math.max(this.opacity - 0.01, Math.random() * 0.4 + 0.1);
+          this.opacity = Math.max(this.opacity - 0.01, 0.1);
         }
       }
 
@@ -457,7 +467,7 @@
     }
 
     draw() {
-      ctx.fillStyle = `rgba(253, 224, 71, ${this.opacity * 1.5})`; 
+      ctx.fillStyle = `rgba(253, 224, 71, ${this.opacity * 1.5})`;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
@@ -478,7 +488,7 @@
         if (distance < baseConnectionDistance) {
           ctx.beginPath();
           ctx.strokeStyle = `rgba(253, 224, 71, ${(baseConnectionDistance - distance) / baseConnectionDistance * 0.3})`;
-          ctx.lineWidth = 1.2; 
+          ctx.lineWidth = 1.2;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.stroke();
@@ -488,19 +498,18 @@
   }
 
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
     }
 
-    drawLines(); 
-
-    requestAnimationFrame(animate); 
+    drawLines();
+    requestAnimationFrame(animate);
   }
 
-  animate(); 
+  animate();
 </script>
 </body>
 </html>
